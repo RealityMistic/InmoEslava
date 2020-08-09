@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+    }
+    @helper selected(string c, string culture)
+    {
+        if (c == culture)
+        {
+            @:checked="checked"
+        }
+    }
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            @Html.ActionLink("InmoEslava", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item hide-is-user-not-logged-in">@Html.ActionLink("Add Property", "Property", "PropertyView", new { @class = "nav-link" })</li>
+                </ul>
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="nav-item hide-is-user-not-logged-in">
+                        <button type="button" class="btn btn-link nav-link" id="btnLogout">Logout</button>
+                    </li>
+                    <li class="nav-item mr-md-2 hide-is-user-logged-in">
+                        <button type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#loginDiv">Login</button>
+                    </li>
+                    <li class="nav-item hide-is-user-logged-in">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerDiv">Register</button>
+                    </li>
+                    <li class="nav-item d-flex align-items-center px-md-4">
+                        @using (Html.BeginForm("SetCulture", "Home"))
+                        {
+                            <fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <label for="en-us">
+                                            <input name="culture" id="en-us" value="en-us" type="radio" @selected("en-us", culture) /> English
+                                        </label>
+                                        <label for="es">
+                                            <input name="culture" id="es" value="es" type="radio" @selected("es", culture) /> Español
+                                        </label>
+                                        <label for="ar">
+                                            <input name="culture" id="ar" value="ar" type="radio" @selected("ar", culture) /> английский
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+
+
+                        }
+                        @section Scripts {
+                            @Scripts.Render("~/bundles/jqueryval")
+                            <script type="text/javascript">
+                                (function ($) {
+                                    $("input[type = 'radio']").click(function () {
+                                        $(this).parents("form").submit(); // post form
+                                    });
+
+                                })(jQuery);
+                            </script>
+                        }
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+    @RenderBody()
+
+<footer class="py-5 bg-light text-center">
+    <ul class="social-icons list-unstyled d-flex justify-content-center">
+        <li><a href="https://facebook.com"><i class="fab fa-facebook-square"></i></a></li>
+        <li><a href="https://instagram.com"> <i class="fab fa-instagram"></i></a></li>
+        <li><a href="https://twitter.com"><i class="fab fa-twitter-square"></i></a></li>
+        <li><a href="https://linkedin.com"> <i class="fab fa-linkedin"></i></a></li>
+    </ul>
+
+    <style>
+        .social-icons li {
+            font-size: 2.5em;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .social-icons a {
+            color: #555;
+        }
+
+            .social-icons a:hover {
+                color: #024dbc;
+            }
+    </style>
+
+
+    <p class="mb-1 text-small">© @DateTime.Now.Year InmoEslava</p>
+    <!--
+       <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+    -->
+</footer>
+
+    <div class="modal fade" id="loginDiv" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="msg" class="alert alert-info"></div>
+                    <form>
+                        <div class="mb-3">
+                            <label for="txtUserName" class="col-form-label">User Name </label>
+                            <input type='text' name="email" id="txtUserName" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPwd" class="col-form-label">Password</label>
+                            <input type="password" id="loginPwd" class="form-control" autocomplete="off">
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnLogin" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="registerDiv" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginDiv">
+                        <form>
+                            <div class="form-group">
+                                <label for="UserName">User Email</label>
+                                <input type='text' name="UserEmail" id="txtUserEmail" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" id="textPwd" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="txtConfirmPwd" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="FirstName" id="txtFirstName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="LastName" id="txtLastName" class="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnRegister" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (Boolean(localStorage.getItem('Role'))) {
+                $('body').addClass('user-logged-in')
+            } else {
+                $('body').removeClass('user-logged-in')
+            }
+            $('#btnLogout').on('click', function () {
+                localStorage.removeItem('Role')
+                $('body').removeClass('user-logged-in')
+            })
+        });
+        $("#btnRegister").on('click', function () {
+            if ($("#textPwd").val().trim() === $("#txtConfirmPwd").val().trim()) {
+                var userInfo = {
+                    UserEmail: $("#txtUserEmail").val().trim(),
+                    Password: $("#textPwd").val().trim(),
+                    ConfirmPassword: $("#txtConfirmPwd").val().trim(),
+                    FirstName: $("#txtFirstName").val(),
+                    LastName: $("#txtLastName").val()
+                };
+                $.ajax({
+                    url: "https://localhost:44335/api/users/Register",
+                    type: 'POST',
+                    data: userInfo,
+                    success: function (resp) {
+                        alert(resp.text);
+                        window.location.href = '/Home/Index';
+                    }
+                })
+            }
+        });
+
+        $("#btnLogin").on('click', function () {
+            var data = { Email: $("#txtUserName").val(), Password: $("#loginPwd").val() };
+            $.ajax(
+                {
+                    url: "https://localhost:44335/TOKEN",
+                    type: "POST",
+                    data: $.param({ grant_type: 'password', username: $("#txtUserName").val(), password: $("#loginPwd").val() }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    success: function (resp) {
+
+                        localStorage.setItem('accessToken', resp.access_token);
+                        var authHeaders = {};
+                        authHeaders.Authorization = 'Bearer ' + resp.access_token;
+                        $.ajax({
+                            url: "https://localhost:44335/api/users/LoginUser",
+                            type: "GET",
+                            headers: authHeaders,
+                            success: function (response) {
+                                debugger;
+                                console.log(response.Role);
+                                localStorage.setItem('Role', response.Role);
+                                localStorage.setItem('UserId', response.UserId);
+                                $('body').addClass('user-logged-in');
+                               window.location.href = '/Home/Index';
+                                $("#loginEmail").val("");
+                                $("#loginPwd").val("");
+                    
+                            }
+                        });
+
+                    },
+                    error: function () {
+                        $("#msg").text("Authentication failed");
+                    }
+                })
+        });
+
+
+    </script>
+</body>
+</html>

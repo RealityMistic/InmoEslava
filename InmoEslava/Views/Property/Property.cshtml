@@ -1,0 +1,202 @@
+﻿<div class="container py-5">
+
+    <div class="row g-3 col-lg-9 mx-auto">
+
+        <div class="col">
+            <form>
+                <fieldset>
+                    <br />
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="propertyName" class="form-label">Property Name</label>
+                            <input type="text" class="form-control" id="propertyName">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="propertyDescription" class="form-label">Property Description</label>
+                            <textarea class="form-control" id="propertyDescription" rows="3"></textarea>
+
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" id="region" name="region" required="">
+                                <option value="-1">Select Region</option>
+                                <option>France</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" id="city" name="city" required="">
+                                <option value="-1">Select Town/City</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Area</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Area sq m2">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Price</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Price">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Rooms</label>
+                            <select class="form-select" id="city" name="city" required="">
+                                <option value="-1">Select Rooms</option>
+                                <option>Studio / 1 room</option>
+                                <option>2 rooms</option>
+                                <option>3 rooms</option>
+                                <option>4 or more rooms</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Toilets</label>
+                            <select class="form-select" id="toilet" name="toilet" required="">
+                                <option value="-1">Select Toilets</option>
+                                <option>Single</option>
+                                <option>Double</option>
+                                <option>Three or more</option>
+                                <option>Detached</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Location Latitude</label>
+                            <input class="form-control" id="exampleInputEmail1" placeholder="Lat">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Location Longitude</label>
+                            <input class="form-control" id="exampleInputEmail1" placeholder="Long">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Location</p>
+                            <div class="form-check">
+                                <input id="beach" name="location" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="beach">On the beach</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="city-center" name="location" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="city-center">In the city center</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="countryside" name="location" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="countryside">In the countryside</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="small-town" name="location" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="small-town">Small town</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="mountain" name="location" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="mountain">Mountain</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Near To</p>
+                            <div class="form-check">
+                                <input id="beach" name="nearTo" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="beach">Beach</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="mall" name="nearTo" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="mall">Mall</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="nice-street" name="nearTo" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="nice-street">Nice Street</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="bus" name="nearTo" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="bus">Bus</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="train" name="nearTo" type="checkbox" class="form-check-input" required="">
+                                <label class="form-check-label" for="train">Train</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Materials</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="brick" name="materials" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="brick">Brick</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="stone" name="materials" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="stone">Stone</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="concrete" name="materials" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="concrete">Concrete</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="wood" name="materials" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="wood">Wood</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="quality" name="materials" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="quality">Quality</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Characteristics</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="garage" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="garage">Garage</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="swimming-pool" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="swimming-pool">Swimming Pool</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="chimney" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="chimney">Chimney</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="air-conditioning" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="air-conditioning">Air Conditioning</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="garden" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="garden">Garden</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="built-in-closets" name="characteristics" type="checkbox" class="form-check-input" required="">
+                                        <label class="form-check-label" for="built-in-closets">Built-in Closets</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="myfile">Upload Property Images:</label>
+                            <input type="file" id="myfile" name="myfile" multiple><br><br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+        </div>
+</div>

@@ -1,0 +1,897 @@
+﻿@model InmoEslava.Models.Person
+@{
+    ViewBag.Title = Resources.AddPerson;
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+}
+@helper selected(string c, string culture)
+{
+    if (c == culture)
+    {
+        @:checked="checked"
+    }
+}
+    <div class="container py-5">
+        <div class="row g-3">
+            <div class="col-md-5 col-lg-5  ml-auto order-md-last">
+                <div class="bd-example">
+                    <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#list" role="tab" aria-controls="home" aria-selected="true">List</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Map</a>
+                        </li>
+                        <li class="nav-item hide-is-user-not-logged-in" role="presentation">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Favorites</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="property-list-not-found alert alert-warning d-none" role="alert">
+                                No Result Found.
+                            </div>
+                            <ul class="list-group property-list mb-3">
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div id="map_wrapper">
+                                <div id="map_canvas" class="mapping"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade hide-is-user-not-logged-in" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="favorite-property-list-not-found alert alert-warning d-none" role="alert">
+                                No Favorite Properties Found.
+                            </div>
+                            <ul class="list-group favorite-property-list mb-3">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-6">
+                <form class="search-property">
+                    <fieldset>
+                        <legend>Search Criteria</legend>
+                        <hr class="my-4" />
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <select class="form-select" id="region" name="region" >
+                                    <option></option>
+                                 
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="city" name="city">
+                                    <option></option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" id="municipality" name="municipality">
+                                    <option></option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" id="inputMinArea" name="min_area" placeholder="Min sq m2">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" id="inputMaxArea" name="max_area" placeholder="Max sq m2">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" id="inputMinPrice" name="min_price" placeholder="Min Price">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" id="inputMaxPrice" name="max_price" placeholder="Max Price">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Rooms</p>
+                                <div class="form-check">
+                                    <input id="studio" name="rooms" value="1" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="studio">Studio / 1 room</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="2-rooms" name="rooms" value="2" type="checkbox" class="form-check-input" />
+                                    <label class="form-check-label" for="2-rooms">2 rooms</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="3-rooms" name="rooms" value="3" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="3-rooms">3 rooms</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="4-rooms" name="rooms" value="4" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="4-rooms">4 rooms or more</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Toilets</p>
+                                <div class="form-check">
+                                    <input id="single" name="toilets" value="1" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="single">Single</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="two" name="toilets" value="2" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="two">Two</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="three-or-more" name="toilets" value="3" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="three-or-more">Three or more</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="detached" name="toilets" value="4" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="detached">Detached</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Location</p>
+                                <div class="form-check">
+                                    <input id="locationBeach" name="location" value="1" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="locationBeach">On the beach</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="city-center" name="location" value="2" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="city-center">In the city center</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="countryside" name="location" value="3" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="countryside">In the countryside</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="small-town" name="location" value="4" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="small-town">Small town</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="mountain" name="location" value="5" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="mountain">Mountain</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Near To</p>
+                                <div class="form-check">
+                                    <input id="beach" name="nearTo" value="1" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="beach">Beach</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="mall" name="nearTo" value="2" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="mall">Mall</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="nice-street" name="nearTo" value="3" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="nice-street">Nice Street</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="bus" name="nearTo" value="4" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="bus">Bus</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="train" name="nearTo" value="5" type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="train">Train</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Materials</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="brick" value="1" name="materials" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="brick">Brick</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="stone" name="materials" value="2" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="stone">Stone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="concrete" name="materials" value="3" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="concrete">Concrete</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="wood" name="materials" value="4" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="wood">Wood</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="quality" name="materials" value="5" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="quality">Quality</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-uppercase text-muted font-weight-bold">Characteristics</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="garage" name="characteristics" value="1" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="garage">Garage</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="swimming-pool" name="characteristics" value="4" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="swimming-pool">Swimming Pool</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="chimney" name="characteristics" value="2" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="chimney">Chimney</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="air-conditioning" name="characteristics" value="5" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="air-conditioning">Air Conditioning</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="garden" name="characteristics" value="3" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="garden">Garden</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input id="built-in-closets" name="characteristics" value="6" type="checkbox" class="form-check-input">
+                                            <label class="form-check-label" for="built-in-closets">Built-in Closets</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="my-div">
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+
+
+
+
+   
+        <div>
+           
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            <script>             
+                jQuery(function ($) {
+                    // Asynchronously Load the map API 
+                    var script = document.createElement('script');
+                    script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyAehes-Bte5fvkVkLltV81Owv6Pt_geT2s&callback=initializeMap";
+                    document.body.appendChild(script);
+                });
+
+                var map = null;
+                var gmarkers = []
+               
+                function updateMap(markers) {
+                    var bounds = new google.maps.LatLngBounds();
+
+                    // delete all existing markers first
+                    for (var i = 0; i < gmarkers.length; i++) {
+                        gmarkers[i].setMap(null);
+                    }
+                    gmarkers = [];
+
+                    // add new markers from the JSON data
+                    for (var i = 0, length = markers.length; i < length; i++) {
+                        latLng = new google.maps.LatLng(markers[i].lat, markers[i].lng);
+                        bounds.extend(latLng);
+                        var marker = new google.maps.Marker({
+                            position: latLng,
+                            map: map,
+                            title: markers[i].title
+                        });
+                        var infoWindow = new google.maps.InfoWindow();
+                        /* google.maps.event.addListener(marker, "click", function (e) {
+                             infoWindow.setContent(markers.description + "<br>" + marker.getPosition().toUrlValue(6));
+                             infoWindow.open(map, marker);
+                         });*/
+                         (function (marker, data) {
+                             google.maps.event.addListener(marker, "click", function (e) {
+                                 infoWindow.setContent("<strong>" + data.content + "</strong><br>" + data.description + "<br>" + marker.getPosition().toUrlValue(6));
+                                 infoWindow.open(map, marker);
+                             });
+                         })(marker, markers[i]);
+                        gmarkers.push(marker);
+                    }
+
+                    // zoom the map to show all the markers, may not be desirable.
+                    map.fitBounds(bounds);
+                };
+                function initializeMap() {
+                    // initialize the map on page load.
+                    var mapOptions = {
+                        center: new google.maps.LatLng(35.66, -80.50),
+                        zoom: 8,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    map = new google.maps.Map(document.getElementById("map_canvas"),
+                        mapOptions);
+
+                   /* gmarkers=[{
+                        "lat": 35.6606376,
+                        "lng": -80.5048653,
+                        "content": "bca",
+                        "description": "first marker"
+                    }, {
+                            "lat": 42.6799504,
+                            "lng": -36.4949205,
+                            "content": "abc",
+                            "description": "second marker"
+                        }]
+                    // add the markers to the map if they have been loaded already.
+                    if (gmarkers.length > 0) {
+                        for (var i = 0; i < gmarkers.length; i++) {
+                            gmarkers[i].setMap(map);
+                        }
+                    }*/
+                }
+                </script>
+                <script type="text/javascript">
+                    (function ($) {
+                        $("input[type = 'radio']").click(function () {
+                            $(this).parents("form").submit(); // post form
+                        });
+
+                    })(jQuery);
+
+                    $(document).ready(function () {                      
+                     $("#region").select2({
+                        placeholder: "- Select Region -",
+                        theme: "bootstrap",
+                         width: 'resolve',
+                         allowClear: true,
+                        ajax: {
+                            url: 'https://localhost:44335/api/Filter/GetRegion',
+                            dataType: 'json',                    
+                            processResults: function (data) {
+                                console.log(data)
+                                return {
+                                    results: $.map(data, function (item) {
+                                        console.log(item)
+                                        return {
+                                            text: item.Name,
+                                                id: item.Id
+                                        }
+                                    })
+                                };
+                            }
+                        }
+
+                    })
+
+                    
+                    $("#city").select2({
+                        placeholder: "- Select City -",
+                        theme: "bootstrap",
+                        width: 'resolve',
+                    })
+                    //.prop("disabled", true);;
+                    $("#municipality").select2({
+                        placeholder: "- Select Municipality -",
+                        theme: "bootstrap",
+                        width: 'resolve',
+                    })
+                   
+                    var cityApiURL = 'https://localhost:44335/api/Filter/GetProvinces/:parentId:';
+                    var municipalityApiURL = 'https://localhost:44335/api/Filter/GetMunicipalities/:parentId:';
+                    $("#region").on("change", function (e) {
+
+                        $('#city').prop("disabled", true);
+                         $("#municipality").empty().trigger('change')
+                        $.getJSON(cityApiURL.replace(':parentId:', $(this).val()), function (items) {
+
+                            console.log(items)
+                            var newOptions = '<option></option>';
+                             
+                                $.map(items, function (item) {
+                                    console.log(item)
+                                    newOptions += '<option value="' + item.Id + '">' + item.Name + '</option>';                                    
+                                })
+
+                            $('#city').select2('destroy').html(newOptions).prop("disabled", false)
+                                .select2({
+                                    placeholder: "- Select City -",
+                                    theme: "bootstrap",
+                                    width: 'resolve',
+                     allowClear: true,
+                                });                               
+                    $('#city').trigger('cityLoaded');
+                        });                  
+                    });
+
+                    $("#city").on("change", function (e) {
+                        $('#municipality').prop("disabled", true);
+                        $.getJSON(municipalityApiURL.replace(':parentId:', $(this).val()), function (items) {
+
+                            console.log(items)
+                            var newOptions = '<option></option>';
+                            $.map(items, function (item) {
+                                    console.log(item)
+                                    newOptions += '<option value="' + item.Id + '">' + item.Name + '</option>';                                    
+                                })
+
+                            $('#municipality').select2('destroy').html(newOptions).prop("disabled", false)
+                                .select2({
+                                    placeholder: "- Select Municipality -",
+                                    theme: "bootstrap",
+                                    width: 'resolve',
+                    allowClear: true,
+                                });
+                   $('#municipality').trigger('municipalityLoaded');                
+                        });
+                    });
+
+                    
+
+
+                        //debugger;
+                        if (localStorage.getItem('UserId')) {// != "undefined" || localStorage.getItem('UserId') != "") {
+                            if (Number.isInteger(parseInt(localStorage.getItem('UserId'),10))) {
+                                $.ajax({
+                                    url: "https://localhost:44335/api/Property/GetFilterData/" + localStorage.getItem('UserId'),
+                                    type: 'GET',
+                                    success: function (filterDataForUser) {
+                                        console.log(filterDataForUser);
+                                        if (filterDataForUser != null) {
+                                            //Bind Filter Data here
+                                           var filterData = {
+                                                RoomsData: filterDataForUser.RoomsData,
+                                                ToiletData: filterDataForUser.ToiletData,
+                                                CharactersticData: filterDataForUser.CharactersticData,
+                                                MaterialData: filterDataForUser.MaterialData,
+                                                LocationData: filterDataForUser.LocationData,
+                                                NearToData: filterDataForUser.NearToData,
+                                               Region: filterDataForUser.Region,
+                                               RegionName: filterDataForUser.RegionName,
+                                               MunicipalityName: filterDataForUser.MunicipalityName,
+                                                City: filterDataForUser.City,
+                                                MinArea: filterDataForUser.MinArea,
+                                                MaxArea: filterDataForUser.MaxArea,
+                                                MinPrice: filterDataForUser.MinPrice,
+                                               MaxPrice: filterDataForUser.MaxPrice,
+                                               Municipality: filterDataForUser.Municipality
+                                            };
+                                            
+                                            console.log('test', filterData)
+                                            $( "#city" ).one( "cityLoaded", function() {                      
+                                                $(this).val(filterData.City).trigger('change')
+                                            });
+
+                                            $("#municipality").one("municipalityLoaded", function () {
+                                                $(this).val(filterData.Municipality.trim()).trigger('change')
+                                            });
+
+                                            if (filterData.RegionName && filterData.Region) {
+                                                var selectedRegionOption = new Option(filterData.RegionName, filterData.Region, true, true);
+                                                $('#region').append(selectedRegionOption).trigger('change')
+                                            }
+                                            
+                                            $('#inputMinArea').val(filterData.MinArea);
+                                            $('#inputMaxArea').val(filterData.MaxArea);
+                                            $('#inputMinPrice').val(filterData.MinPrice);
+                                            $('#inputMaxPrice').val(filterData.MaxPrice);
+                                            
+                                            if (filterData.RoomsData) {
+                                                $.map(filterData.RoomsData.split(','), function (item) {
+                                                    $(`input[name="rooms"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                            if (filterData.ToiletData) {
+                                                $.map(filterData.ToiletData.split(','), function (item) {
+                                                    $(`input[name="toilets"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                            if (filterData.CharactersticData) {
+                                                $.map(filterData.CharactersticData.split(','), function (item) {
+                                                    $(`input[name="characteristics"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                            if (filterData.LocationData) {
+                                                $.map(filterData.LocationData.split(','), function (item) {
+                                                    $(`input[name="location"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                            if (filterData.MaterialData) {
+                                                $.map(filterData.MaterialData.split(','), function (item) {
+                                                    $(`input[name="materials"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                            if (filterData.NearToData) {
+                                                $.map(filterData.NearToData.split(','), function (item) {
+                                                    $(`input[name="nearTo"][value="${item}"]`).prop('checked', true)
+                                                })
+                                            }
+                                          
+                                            $.ajax({
+                                                url: "https://localhost:44335/api/Property/GetProperties/" + localStorage.getItem('UserId')+"/false",
+                                                data: filterData,
+                                                type: 'POST',
+                                                success: function (resp) {
+                                                    console.log(resp);
+                                                    if (!resp) {
+                                                        $('.property-list-not-found').removeClass('d-none');
+                                                        $('.property-list').hide();
+                                                        $('.favorite-property-list-not-found').removeClass('d-none');
+                                                        $('.favorite-property-list').hide();
+                                                        return;
+                                                    } else {
+                                                        $('.property-list-not-found').addClass('d-none');
+                                                        $('.property-list').show();
+                                                        $('.favorite-property-list-not-found').addClass('d-none');
+                                                        $('.favorite-property-list').show();
+                                                    }
+                                                    var arrayResp = resp;
+                                                    var cList = $('ul.list-group')
+                                                    var properties = [];
+                                                    var favoriteProperties = [];
+                                                    var propMarkers = [];
+                                                    $.each(resp, function (i) {
+                                                        var propMarker = {
+                                                            "lat": this.Latitude,
+                                                            "lng": this.Longitiude,
+                                                            "content": this.Name,
+                                                            "description": this.Description
+                                                        };
+                                                        var template = `<li data-prop-id="${this.Id}" class="list-group-item d-flex align-items-center lh-sm">
+                                    <div ><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}"><img src="https://picsum.photos/seed/picsum/200/200" class="img-size-sm img-fluid rounded" /></a></div>
+                                    <div class="px-2"><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}">
+                                        <h6 class="my-0">${this.Name}</h6>
+                                        <small class="text-muted">${this.Description}</small></a>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <div class="btn-group hide-is-user-not-logged-in btn-group-sm mr-3" role="group">
+                                            <button id="${'Edit_' + this.Id}" type="button" title="Edit" class="btn-edit-prop btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+</svg></button>
+                                            <button id="'Delete_'+${this.Id}" type="button" title="Delete" class="btn-delete-prop btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+</svg></button>
+
+                                        </div>
+                                         ${ this.IsUsersFavourite ? `<span class="favorite-icon" title="Favorite">
+                                                           <i class="fas fa-star"></i>
+                                                        </span>`: `<span class="favorite-icon" title="Not Favorite">
+                                                          <i class="far fa-star"></i>
+                                                        </span>`}     
+                                    </div>
+                                </li>`;
+                                                        if (this.IsUsersFavourite) {
+                                                            favoriteProperties.push(template)
+                                                        }
+                                                        properties.push(template);
+                                                        propMarkers.push(propMarker);
+                                                    });
+                                                    $('ul.property-list > li').remove();
+                                                    $('ul.property-list').append(properties.join(''))
+
+                                                    $('ul.favorite-property-list > li').remove();
+                                                    $('ul.favorite-property-list').append(favoriteProperties.join(''))
+                                                    updateMap(propMarkers);
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            $.ajax({
+                                                url: "https://localhost:44335/api/Property/GetAllProperties",
+                                                type: 'GET',
+                                                success: function (resp) {
+                                                    console.log(resp);
+                                                    if (!resp) {
+                                                        $('.property-list-not-found').removeClass('d-none');
+                                                        $('.property-list').hide();
+                                                        return;
+                                                    } else {
+                                                        $('.property-list-not-found').addClass('d-none');
+                                                        $('.property-list').show();
+                                                    }
+                                                    var arrayResp = resp;
+                                                    var cList = $('ul.list-group')
+                                                    var properties = [];
+                                                    var propMarkers = [];
+                                                    $.each(resp, function (i) {
+                                                        var propMarker = {
+                                                            "lat": this.Latitude,
+                                                            "lng": this.Longitiude,
+                                                            "content": this.Name,
+                                                            "description": this.Description
+                                                        };
+                                                        var template = `<li data-prop-id="${this.Id}" class="list-group-item d-flex align-items-center lh-sm">
+                                    <div ><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}"><img src="https://picsum.photos/seed/picsum/200/200" class="img-size-sm img-fluid rounded" /></a></div>
+                                    <div class="px-2"><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}">
+                                        <h6 class="my-0">${this.Name}</h6>
+                                        <small class="text-muted">${this.Description}</small></a>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <div class="btn-group hide-is-user-not-logged-in btn-group-sm mr-3" role="group">
+                                            <button type="button" title="Edit" class="btn-edit-prop btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+</svg></button>
+                                            <button type="button" title="Delete" class="btn-delete-prop btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+</svg></button>
+
+                                        </div>
+                                        <span class="favorite-icon">
+                                            <svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </li>`;
+                                                        properties.push(template);
+                                                        propMarkers.push(propMarker);
+                                                    });
+                                                    $('ul.list-group > li').remove();
+                                                    $('ul.list-group').append(properties.join(''))
+                                                    updateMap(propMarkers);
+                                                }
+                                            });
+
+                                        }
+                                    }
+                                });
+                            }
+                           
+                        }
+                        else {
+                            $.ajax({
+                                url:"https://localhost:44335/api/Property/GetAllProperties",
+                                type: 'GET',
+                                success: function (resp) {
+                                    console.log(resp);
+                                    var arrayResp = resp;
+                                    var cList = $('ul.list-group')
+                                    var properties = [];
+                                    var propMarkers = [];
+                                    $.each(resp, function (i) {
+                                        var propMarker = {
+                                            "lat": this.Latitude,
+                                            "lng": this.Longitiude,
+                                            "content": this.Name,
+                                            "description": this.Description
+                                        };
+                                        var template = `<li data-prop-id="${this.Id}" class="list-group-item d-flex align-items-center lh-sm">
+                                    <div ><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}"><img src="https://picsum.photos/seed/picsum/200/200" class="img-size-sm img-fluid rounded" /></a></div>
+                                    <div class="px-2"><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}">
+                                        <h6 class="my-0">${this.Name}</h6>
+                                        <small class="text-muted">${this.Description}</small></a>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <div class="btn-group hide-is-user-not-logged-in btn-group-sm mr-3" role="group">
+                                            <button type="button" title="Edit" class="btn-edit-prop btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+</svg></button>
+                                            <button type="button" title="Delete" class="btn-delete-prop btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+</svg></button>
+
+                                        </div>
+                                        <span class="favorite-icon">
+                                            <svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </li>`;
+                                        properties.push(template);
+                                        propMarkers.push(propMarker);
+                                    });
+                                    $('ul.list-group > li').remove();
+                                    $('ul.list-group').append(properties.join(''))
+                                    updateMap(propMarkers);
+                                }
+                            });
+                        }
+                        $('form.search-property').on('submit', function (e) {
+                            e.preventDefault()
+                            console.log($(this).serialize(), $(this).serializeArray());
+                            var filterArray = $(this).serializeArray();
+                            var region;
+                            var minArea = 0;
+                            var maxArea = 1000000;
+                            var minPrice = 0;
+                            var maxPrice = 1000000;
+                            var location = "";
+                            var material = "";
+                            var toilets = "";
+                            var nearTo = "";
+                            var charactersctics = "";
+                            var City = "";
+                            var rooms = "";
+                            var municipality = "";
+                            for (var i = 0; i < filterArray.length; i++) {
+                                if (filterArray[i].name === 'region' && filterArray[i].value != '-1')
+                                    region = filterArray[i].value;
+                                if (filterArray[i].name === "city" && filterArray[i].value != '-1')
+                                    City = filterArray[i].value;
+                                if (filterArray[i].name === "municipality" && filterArray[i] != '-1')
+                                    municipality = filterArray[i].value;
+                                if (filterArray[i].name === "min_area")
+                                    minArea = filterArray[i].value;
+                                if (filterArray[i].name === "max_area")
+                                    maxArea = filterArray[i].value;
+                                if (filterArray[i].name === "min_price")
+                                    minPrice = filterArray[i].value;
+                                if (filterArray[i].name === "max_price")
+                                    maxPrice = filterArray[i].value;
+                                if (filterArray[i].name === "location") {
+                                    if (location === "")
+                                        location = filterArray[i].value;
+                                    else
+                                    location = location + "," + filterArray[i].value;
+                                }
+                                if (filterArray[i].name === "characteristics") {
+                                    if (charactersctics === "")
+                                        charactersctics = filterArray[i].value;
+                                    else
+                                    charactersctics = charactersctics + "," + filterArray[i].value;
+
+                                }
+                                if (filterArray[i].name === "materials") {
+                                    if (material === "")
+                                        material = filterArray[i].value;
+                                    else
+                                    material = material + "," + filterArray[i].value;
+
+                                }
+                                if (filterArray[i].name === "nearTo") {
+                                    if (nearTo === "")
+                                        nearTo = filterArray[i].value;
+                                    else
+                                    nearTo = nearTo + "," + filterArray[i].value;
+
+                                }
+                                if (filterArray[i].name === "toilets") {
+                                    if (toilets === "")
+                                        toilets = filterArray[i].value;
+                                    else
+                                    toilets = toilets + "," + filterArray[i].value;
+
+                                }
+                                if (filterArray[i].name === "rooms") {
+                                    if (rooms === "")
+                                        rooms = filterArray[i].value;
+                                    else
+                                    rooms = rooms + "," + filterArray[i].value;
+                                }
+                            }
+                            var filterData = {
+                                RoomsData: rooms,
+                                ToiletData: toilets,
+                                CharactersticData: charactersctics,
+                                MaterialData: material,
+                                LocationData: location,
+                                NearToData: nearTo,
+                                Region: region,
+                                City: City,
+                                MinArea: minArea,
+                                MaxArea: maxArea,
+                                MinPrice: minPrice,
+                                MaxPrice: maxPrice,
+                                Municipality: municipality
+                            };
+                            console.log(filterData);
+                            console.log(localStorage.getItem('UserId'))
+                            $.ajax({
+                                url: "https://localhost:44335/api/Property/GetProperties/" + localStorage.getItem('UserId') + "/true",
+                                type: 'POST',
+                                data: filterData,
+                                success: function (resp) {
+                                    console.log(resp);
+                    if(!resp){
+                       $('.property-list-not-found').removeClass('d-none');
+                    $('.property-list').hide();
+                        return;
+                    }else{
+                    $('.property-list-not-found').addClass('d-none');
+                    $('.property-list').show();
+                    }
+                                    var arrayResp = resp;
+                                    var cList = $('ul.list-group')
+                                    var properties = [];
+                                    var propMarkers = [];
+                                    $.each(resp, function (i) {
+                                        var propMarker = {
+                                            "lat": this.Latitude,
+                                            "lng":this.Longitiude,
+                                            "content": this.Name,
+                                            "description": this.Description
+                                        };
+                                        var template = `<li data-prop-id="${this.Id}" class="list-group-item d-flex align-items-center lh-sm">
+                                    <div ><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}"><img src="https://picsum.photos/seed/picsum/200/200" class="img-size-sm img-fluid rounded" /></a></div>
+                                    <div class="px-2"><a href="/Property/PropertyView?Id=${this.Id}&token=${sessionStorage.getItem("accessToken")}">
+                                        <h6 class="my-0">${this.Name}</h6>
+                                        <small class="text-muted">${this.Description}</small></a>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <div class="btn-group hide-is-user-not-logged-in btn-group-sm mr-3" role="group">
+                                            <button id="${'Edit_'+this.Id}" type="button" title="Edit" class="btn-edit-prop btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+</svg></button>
+                                            <button id="'Delete_'+${this.Id}" type="button" title="Delete" class="btn-delete-prop btn btn-danger"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+</svg></button>
+
+                                        </div>
+                                        <span class="favorite-icon">
+                                            <svg class="bi bi-star-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </li>`;
+                                        properties.push(template);
+                                        propMarkers.push(propMarker);
+                                    });
+                                    $('ul.list-group > li').remove();
+                                    $('ul.list-group').append(properties.join(''))
+                                    updateMap(propMarkers);
+                                }
+                            })
+
+                           
+                            
+                        })
+                        $('ul.list-group').on('click', '.btn-edit-prop', function (e) {
+
+                            window.location.href = '/Property/EditProperty?Id=' + $(this).closest('[data-prop-id]').attr('data-prop-id');
+                            console.log($(this).closest('[data-prop-id]').attr('data-prop-id'));
+                        })
+                        $('ul.list-group').on('click', '.btn-delete-prop', function (e) {
+                            console.log($(this).closest('[data-prop-id]').attr('data-prop-id'));
+                        var prop = $(this).closest('[data-prop-id]')
+                    var propID = prop.attr('data-prop-id')
+                            
+                            $.ajax({
+                                url: "https://localhost:44335/api/Property/DeleteProperty/" + $(this).closest('[data-prop-id]').attr('data-prop-id'),
+                                type: 'POST',
+                                success: function (resp) {
+                                    console.log(resp);                  
+                                    if (resp) {
+                                        prop.remove();
+                                    }
+                                    else
+                                        alert('Delete is not successful');
+                                   
+                                }
+                            });
+                        })
+                    
+                    })
+                </script>
+            }
+        </div>
+    </div>

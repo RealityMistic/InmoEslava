@@ -1,0 +1,592 @@
+﻿@model InmoEslava.ViewModel.PropertyViewModel
+
+<div class="container py-5">
+
+    <div class="row g-3 col-lg-9 mx-auto">
+        <h3>Edit Property</h3>
+        <div class="col">
+            <form class="editPropertyForm">
+                <fieldset>
+                    <br />
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="propertyName" class="form-label">Property Name</label>
+                            <input value="1" type="text" class="form-control" name="propertyName" id="propertyName">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="propertyDescription" class="form-label">Property Description</label>
+                            <textarea  class="form-control" id="propertyDescription" name="propertyDescription" rows="3"></textarea>
+
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="region" name="region">
+                                <option></option>
+
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="city" name="city">
+                                <option></option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="municipality" name="municipality">
+                                <option></option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Area</label>
+                            <input type="number" class="form-control" id="exampleInputArea" placeholder="Area sq m2">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Price</label>
+                            <input type="number" class="form-control" id="exampleInputPrice" placeholder="Price">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Rooms</label>
+                            <select class="form-select" id="rooms_select" name="rooms">
+                                <option value="-1">Select Rooms</option>
+                                <option value="1">Studio / 1 room</option>
+                                <option value="2">2 rooms</option>
+                                <option value="3">3 rooms</option>
+                                <option value="4">4 or more rooms</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Toilets</label>
+                            <select class="form-select" id="toilet_select" name="toilet">
+                                <option value="-1">Select Toilets</option>
+                                <option value="1">Single</option>
+                                <option value="2">Double</option>
+                                <option value="3">Three or more</option>
+                                <option value="4">Detached</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Location Latitude</label>
+                            <input class="form-control" id="exampleInputLat" placeholder="Lat">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Location Longitude</label>
+                            <input class="form-control" id="exampleInputLong" placeholder="Long">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Location</p>
+                            <div class="form-check">
+                                <input id="locationBeach" name="location" value="1" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="locationBeach">On the beach</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="city-center" name="location" value="2" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="city-center">In the city center</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="countryside" name="location" value="3" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="countryside">In the countryside</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="small-town" name="location" value="4" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="small-town">Small town</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="mountain" name="location" value="5" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="mountain">Mountain</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Near To</p>
+                            <div class="form-check">
+                                <input id="beach" name="nearTo" value="1" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="beach">Beach</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="mall" name="nearTo" value="2" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="mall">Mall</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="nice-street" name="nearTo" value="3" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="nice-street">Nice Street</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="bus" name="nearTo" value="4" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="bus">Bus</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="train" name="nearTo" value="5" type="checkbox" class="form-check-input">
+                                <label class="form-check-label" for="train">Train</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Materials</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="brick" value="1" name="materials" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="brick">Brick</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="stone" name="materials" value="2" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="stone">Stone</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="concrete" name="materials" value="3" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="concrete">Concrete</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="wood" name="materials" value="4" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="wood">Wood</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="quality" name="materials" value="5" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="quality">Quality</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-uppercase text-muted font-weight-bold">Characteristics</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="garage" name="characteristics" value="1" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="garage">Garage</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="swimming-pool" name="characteristics" value="4" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="swimming-pool">Swimming Pool</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="chimney" name="characteristics" value="2" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="chimney">Chimney</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="air-conditioning" name="characteristics" value="5" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="air-conditioning">Air Conditioning</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="garden" name="characteristics" value="3" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="garden">Garden</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input id="built-in-closets" name="characteristics" value="6" type="checkbox" class="form-check-input">
+                                        <label class="form-check-label" for="built-in-closets">Built-in Closets</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <label for="myfile">Upload Property Images:</label>
+                            <input type="file" id="fileInput" name="myfile" multiple><br><br>
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <table class="table" id="FilesList" style="visibility:hidden">
+                                        <tr>
+                                            <th>
+                                                Attachment(s)
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <button id="btnUpdate" type="submit" class="btn btn-primary">Save Property</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+            <style>
+                .red {
+                    color: red;
+                }
+            </style>
+            <form id="uploader">
+            </form>
+        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#region").select2({
+                        placeholder: "- Select Region -",
+                        theme: "bootstrap",
+                        width: 'resolve',
+                        ajax: {
+                            url: 'https://localhost:44335/api/Filter/GetRegion',
+                            dataType: 'json',
+                            processResults: function (data) {
+                                console.log(data)
+                                return {
+                                    results: $.map(data, function (item) {
+                                        console.log(item)
+                                        return {
+                                            text: item.Name,
+                                            id: item.Id
+                                        }
+                                    })
+                                };
+                            }
+                        }
+
+                    })
+
+
+                    $("#city").select2({
+                        placeholder: "- Select City -",
+                        theme: "bootstrap",
+                        width: 'resolve',
+                    })
+                    //.prop("disabled", true);;
+                    $("#municipality").select2({
+                        placeholder: "- Select Municipality -",
+                        theme: "bootstrap",
+                        width: 'resolve',
+                    })
+
+                    var cityApiURL = 'https://localhost:44335/api/Filter/GetProvinces/:parentId:';
+                    var municipalityApiURL = 'https://localhost:44335/api/Filter/GetMunicipalities/:parentId:';
+                    $("#region").on("change", function (e) {
+
+                        $('#city').prop("disabled", true);
+                        $("#municipality").empty().trigger('change')
+                        $.getJSON(cityApiURL.replace(':parentId:', $(this).val()), function (items) {
+
+                            console.log(items)
+                            var newOptions = '<option></option>';
+
+                            $.map(items, function (item) {
+                                console.log(item)
+                                newOptions += '<option value="' + item.Id + '">' + item.Name + '</option>';
+                            })
+
+                            $('#city').select2('destroy').html(newOptions).prop("disabled", false)
+                                .select2({
+                                    placeholder: "- Select City -",
+                                    theme: "bootstrap",
+                                    width: 'resolve',
+                                    allowClear: true,
+                                });
+                            $('#city').trigger('cityLoaded');
+                        });
+                    });
+
+                    $("#city").on("change", function (e) {
+                        $('#municipality').prop("disabled", true);
+                        $.getJSON(municipalityApiURL.replace(':parentId:', $(this).val()), function (items) {
+
+                            console.log(items)
+                            var newOptions = '<option></option>';
+                            $.map(items, function (item) {
+                                console.log(item)
+                                newOptions += '<option value="' + item.Id + '">' + item.Name + '</option>';
+                            })
+
+                            $('#municipality').select2('destroy').html(newOptions).prop("disabled", false)
+                                .select2({
+                                    placeholder: "- Select Municipality -",
+                                    theme: "bootstrap",
+                                    width: 'resolve',
+                                    allowClear: true,
+                                });
+                            $('#municipality').trigger('municipalityLoaded');
+                        });
+                    });
+
+
+
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const myParam = urlParams.get('Id');
+                    //debugger;
+                    $.ajax({
+                        url: "https://localhost:44335/api/Property/GetPropertydetail/" + myParam,
+                        type: 'GET',
+                        success: function (propertyData) {
+                            console.log('propertyData', propertyData);
+                            var filterData = {
+                                Name: propertyData.Property.Name,
+                                Description: propertyData.Property.Description,
+                                RoomsData: propertyData.RoomsData,
+                                ToiletData: propertyData.ToiletData,
+                                CharactersticData: propertyData.CharactersticData,
+                                MaterialData: propertyData.MaterialData,
+                                LocationData: propertyData.LocationData,
+                                NearToData: propertyData.NearToData,
+                                RegionId: propertyData.Property.RegionId,
+                                RegionName: propertyData.Property.Region,
+                                MunicipalityName: propertyData.Property.MunicipalityName,
+                                ProvinceId: propertyData.Property.ProvinceId,
+                                MunicipalityId: propertyData.Property.MunicipalityId,
+                                Price: propertyData.Property.Price,
+                                Area: propertyData.Property.Area,
+                                Latitude: propertyData.Property.Latitude,
+                                Longitude: propertyData.Property.Longitude,
+                                ImagesPath: propertyData.Property.ImagesPath
+                            };
+                            $.ajax({
+                                url: "https://localhost:44387/Property/GetUploadedImages?Id=" + filterData.ImagesPath,
+                                type: 'POST',
+                                success: function (Images) {
+                                    console.log(Images);
+
+                                    $.map(Images, function (image) {
+                                        let srandomid = Math.random().toString(36).substring(7);
+                                        var markup = "<tr id='" + srandomid + "'><td>" + image + "</td><td><a href='#' onclick='DeleteFile(\"" + srandomid + "\",\"" + image +
+                                            "\")'><span class='glyphicon glyphicon-remove red'></span>Delete</a></td></tr>"; // Binding the file name
+                                        $("#FilesList tbody").append(markup);
+                                    });
+
+                                    chkatchtbl();
+                                    //$('#fileInput').val('');
+
+                                }
+                            });
+                            
+                            console.log(filterData);
+                            $("#city").one("cityLoaded", function () {
+                                $(this).val(filterData.ProvinceId).trigger('change')
+                            });
+
+                            $("#municipality").one("municipalityLoaded", function () {
+                                $(this).val(filterData.MunicipalityId).trigger('change')
+                            });
+
+                            var selectedRegionOption = new Option(filterData.RegionName, filterData.RegionId, true, true);
+                            $('#region').append(selectedRegionOption).trigger('change')
+
+
+                            $('#propertyName').val(filterData.Name);
+                            $('#propertyDescription').val(filterData.Description);
+                            $('#exampleInputArea').val(filterData.Area);
+                            $('#exampleInputPrice').val(filterData.Price);
+                            $('#exampleInputLat').val(filterData.Latitude);
+                            $('#exampleInputLong').val(filterData.Longitude);
+                            $("#toilet_select").val(filterData.ToiletData[0]);
+                            $("#rooms_select").val(filterData.RoomsData[0]);
+                            if (filterData.CharactersticData) {
+                                $.map(filterData.CharactersticData, function (item) {
+                                    $(`input[name="characteristics"][value="${item}"]`).prop('checked', true)
+                                })
+                            }
+                            if (filterData.LocationData) {
+                                $.map(filterData.LocationData, function (item) {
+                                    $(`input[name="location"][value="${item}"]`).prop('checked', true)
+                                })
+                            }
+                            if (filterData.MaterialData) {
+                                $.map(filterData.MaterialData, function (item) {
+                                    $(`input[name="materials"][value="${item}"]`).prop('checked', true)
+                                })
+                            }
+                            console.log('filterdata',filterData)
+                            if (filterData.NearToData) {
+                                $.map(filterData.NearToData, function (nearitem) {
+                                    console.log('nearitem', nearitem, $(`input[name="nearTo"][value="${nearitem}"]`).length)
+                                    $(`input[name="nearTo"][value="${nearitem}"]`).prop('checked', true)
+                                })
+                            }
+                           
+                        }
+                       
+                    });
+                });
+
+                var formdata = new FormData(); //FormData object
+                $(document).ready(function () {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const propertyId = urlParams.get('Id');
+                    $("#fileInput").on("change", function () {
+                        var fileInput = document.getElementById('fileInput');
+                        //Iterating through each files selected in fileInput
+                        for (i = 0; i < fileInput.files.length; i++) {
+
+                            var sfilename = fileInput.files[i].name;
+                            let srandomid = Math.random().toString(36).substring(7);
+
+                            formdata.append(sfilename, fileInput.files[i]);
+
+                            var markup = "<tr id='" + srandomid + "'><td>" + sfilename + "</td><td><a href='#' onclick='DeleteFile(\"" + srandomid + "\",\"" + sfilename +
+                                "\")'><span class='glyphicon glyphicon-remove red'></span>Delete</a></td></tr>"; // Binding the file name
+                            $("#FilesList tbody").append(markup);
+
+                        }
+                        chkatchtbl();
+                        $('#fileInput').val('');
+                    });
+
+                    $(".editPropertyForm").submit(function (e) {
+                        e.preventDefault();
+                        console.log($(this).serialize(), $(this).serializeArray());
+                        var propertyDataArray = $(this).serializeArray();
+                        var region = $('#region option:selected').text().trim();;
+                        var propertyName = "";
+                        var propertyDesciption = "";
+                        var price = $("#exampleInputPrice").val();
+                        var area = $("#exampleInputArea").val();
+                        var latitude = $("#exampleInputLat").val();
+                        var longitude = $("#exampleInputLong").val();
+                        var location = "";
+                        var material = "";
+                        var toilets = "";
+                        var nearTo = "";
+                        var charactersctics = "";
+                        var City = $('#city option:selected').text().trim();
+                        var rooms = "";
+                        var municipality = $('#municipality option:selected').text().trim();
+                        var regionId = "";
+                        var cityId = "";
+                        var municipalityId = "";
+                        for (var i = 0; i < propertyDataArray.length; i++) {
+                            if (propertyDataArray[i].name === 'propertyName' && propertyDataArray[i].value != '')
+                                propertyName = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === 'propertyDescription' && propertyDataArray[i].value != '')
+                                propertyDesciption = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === 'region' && propertyDataArray[i].value != '-1')
+                                regionId = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === "city" && propertyDataArray[i].value != '-1')
+                                cityId = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === "municipality" && propertyDataArray[i] != '-1')
+                                municipalityId = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === "price")
+                                minArea = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === "area")
+                                maxArea = propertyDataArray[i].value;
+                            if (propertyDataArray[i].name === "location") {
+                                if (location === "")
+                                    location = propertyDataArray[i].value;
+                                else
+                                    location = location + "," + propertyDataArray[i].value;
+                            }
+                            if (propertyDataArray[i].name === "characteristics") {
+                                if (charactersctics === "")
+                                    charactersctics = propertyDataArray[i].value;
+                                else
+                                    charactersctics = charactersctics + "," + propertyDataArray[i].value;
+
+                            }
+                            if (propertyDataArray[i].name === "materials") {
+                                if (material === "")
+                                    material = propertyDataArray[i].value;
+                                else
+                                    material = material + "," + propertyDataArray[i].value;
+
+                            }
+                            if (propertyDataArray[i].name === "nearTo") {
+                                if (nearTo === "")
+                                    nearTo = propertyDataArray[i].value;
+                                else
+                                    nearTo = nearTo + "," + propertyDataArray[i].value;
+
+                            }
+                            if (propertyDataArray[i].name === "toilet") {
+                                if (toilets === "")
+                                    toilets = propertyDataArray[i].value;
+                                else
+                                    toilets = toilets + "," + propertyDataArray[i].value;
+
+                            }
+                            if (propertyDataArray[i].name === "rooms") {
+                                if (rooms === "")
+                                    rooms = propertyDataArray[i].value;
+                                else
+                                    rooms = rooms + "," + propertyDataArray[i].value;
+                            }
+                        }
+                        var propertyData = {
+                            Property: {
+                                Region: region,
+                                Province: City,
+                                Area: area,
+                                Price: price,
+                                Municipality: municipality,
+                                Name: propertyName,
+                                Description: propertyDesciption,
+                                MunicipalityId: municipalityId,
+                                RegionId: regionId,
+                                ProvinceId: cityId,
+                                Latitude: latitude,
+                                Longitude: longitude
+                            },
+                            RoomsData: rooms,
+                            ToiletData: toilets,
+                            CharactersticData: charactersctics,
+                            MaterialData: material,
+                            LocationData: location,
+                            NearToData: nearTo
+
+                        };
+                        console.log(propertyData);
+                        formdata.append('uploadername', $('#txtuploader').val());
+                        $.ajax({
+                            url: 'https://localhost:44387/Property/UploadFiles',
+                            type: "POST",
+                            contentType: false, // Not to set any content header
+                            processData: false, // Not to process data
+                            data: formdata,
+                            async: false,
+                            success: function (result) {
+                                debugger;
+                                $.ajax({
+                                    url: 'https://localhost:44335/api/Property/UpdateProperty/' + propertyId,
+                                    type: 'POST',
+                                    data: propertyData,
+                                    success: function (response) {
+                                        alert('Property updated Successfully');
+                                    },
+                                    error: function (error) {
+                                        alert('Error in updating property');
+                                    }
+                                });
+                            },
+                            error: function (err) {
+                                alert(err.statusText);
+                            }
+                        });
+                    });
+                });
+                function DeleteFile(Fileid, FileName) {
+                    formdata.delete(FileName)
+                    $("#" + Fileid).remove();
+                    chkatchtbl();
+                }
+                function chkatchtbl() {
+                    if ($('#FilesList tr').length > 1) {
+                        $("#FilesList").css("visibility", "visible");
+                    } else {
+                        $("#FilesList").css("visibility", "hidden");
+                    }
+                }
+            </script>
+        }
+    </div>
+</div>

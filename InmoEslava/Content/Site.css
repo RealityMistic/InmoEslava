@@ -1,0 +1,66 @@
+﻿body {
+ 
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+.favorite-btn {
+    background: transparent;
+    border: none;
+    outline:none;
+    color:goldenrod;
+}
+.favorite-icon{
+    color:goldenrod
+}
+.favorite-icon:hover{
+   
+}
+.form-check{
+    font-size:0.9em
+}
+.alert:empty {
+   display:none;
+}
+.img-size-sm{
+    max-width:64px;
+}
+body.user-logged-in .hide-is-user-logged-in{
+    display:none;
+}
+body:not(.user-logged-in ) .hide-is-user-not-logged-in {
+    display: none;
+}
+.close-login-popup {
+    display:none;
+}
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.property-list a,
+.favorite-property-list a{
+    text-decoration: none;
+}
